@@ -43,23 +43,44 @@ func IntToPost(infix string) string {
 	for _, r := range infix {
 
 		switch {
-		// If the token is a left bracket, push it onto the operator stack
+		// If the token is a closing bracket, push it onto the operator stack
 		case r == '(':
+			stack = append(stack, r)
 
-		// If the token is a right bracket, pop the left bracket from the stack
-		// If the token on top of the operator stack is not a left bracket pop it onto the output queue
+		// If the token is a right bracket, pop the closing bracket from the stack
+		// If the token on top of the operator stack is not a closing bracket pop it onto the output queue
 		case r == ')':
+			for stack[len(stack)-1] != '(' {
+				pofix = append(pofix, stack[len(stack)]-1)
+				stack = stack[:len(stack)-1] // Everything on the stack up to the closing bracket (the last character)
+			}
+
+			stack = stack[:len(stack)-1] // Pop the closing bracket off the stack
 
 		// If the rune is a special character
 		// '> 0' is used because accessing a key not contained in a map returns 0
 		case specials[r] > 0:
+			for len(stack) > 0 || specials[stack[len(stack)-1]] >= specials[r] && stack[len(stack)-1] != '(' {
 
-		// Rune is not a bracket or a special character
+				// Pop operators from the operator stack onto the output queue
+				pofix = append(pofix, stack[len(stack)]-1)
+				stack = stack[:len(stack)-1]
+			}
+
+			stack = append(pofix, r)
+
+		// If the rune is not a bracket or a special character
 		default:
 			pofix = append(pofix, r)
 
 		}
 
+	}
+
+	for len(stack) > 0 {
+		// Pop element off of stack and onto the output queue
+		pofix = append(pofix, stack[len(stack)-1])
+		stack = stack[:len(stack)-1]
 	}
 
 	return string(pofix)
