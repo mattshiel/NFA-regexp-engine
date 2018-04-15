@@ -38,6 +38,30 @@ func IntToPost(infix string) string {
 	// and the stack for the infix operators
 	pofix, stack := []rune{}, []rune{}
 
+	// Loop over infix, throw the index of the char with the blank identifier as it's unneeded
+	// r is the rune at the index
+	for _, r := range infix {
+
+		switch {
+		// If the token is a left bracket, push it onto the operator stack
+		case r == '(':
+
+		// If the token is a right bracket, pop the left bracket from the stack
+		// If the token on top of the operator stack is not a left bracket pop it onto the output queue
+		case r == ')':
+
+		// If the rune is a special character
+		// '> 0' is used because accessing a key not contained in a map returns 0
+		case specials[r] > 0:
+
+		// Rune is not a bracket or a special character
+		default:
+			pofix = append(pofix, r)
+
+		}
+
+	}
+
 	return string(pofix)
 }
 
