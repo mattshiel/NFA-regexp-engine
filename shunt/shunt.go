@@ -20,7 +20,7 @@ The algorithm then does something depending on what operator is read in eg. "3 +
 For the full algorithm in detail follow https://en.wikipedia.org/wiki/Shunting-yard_algorithm#The_algorithm_in_detail
 */
 
-package main
+package shunt
 
 // IntToPost converts an infix regular expression to a postfix regular expression
 // and returns the resulting string to be later sent to a post fix stack evaluator
@@ -51,7 +51,7 @@ func IntToPost(infix string) string {
 		// If the token on top of the operator stack is not a closing bracket pop it onto the output queue
 		case r == ')':
 			for stack[len(stack)-1] != '(' {
-				pofix = append(pofix, stack[len(stack)]-1)
+				pofix = append(pofix, stack[len(stack)-1])
 				stack = stack[:len(stack)-1] // Everything on the stack up to the closing bracket (the last character)
 			}
 
@@ -60,14 +60,14 @@ func IntToPost(infix string) string {
 		// If the rune is a special character
 		// '> 0' is used because accessing a key not contained in a map returns 0
 		case specials[r] > 0:
-			for len(stack) > 0 || specials[stack[len(stack)-1]] >= specials[r] && stack[len(stack)-1] != '(' {
+			for len(stack) > 0 && specials[r] <= specials[stack[len(stack)-1]] {
 
 				// Pop operators from the operator stack onto the output queue
-				pofix = append(pofix, stack[len(stack)]-1)
+				pofix = append(pofix, stack[len(stack)-1])
 				stack = stack[:len(stack)-1]
 			}
 
-			stack = append(pofix, r)
+			stack = append(stack, r)
 
 		// If the rune is not a bracket or a special character
 		default:
@@ -84,8 +84,4 @@ func IntToPost(infix string) string {
 	}
 
 	return string(pofix)
-}
-
-func main() {
-
 }
