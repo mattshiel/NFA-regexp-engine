@@ -54,7 +54,28 @@ func poregtonfa(pofix string) *nfa {
 
 		// Alternation operator
 		case '|':
+			// 'Last In First Out' operation
+			// Pop 2 things off the stack
+			frag2 := nfastack[len(nfastack)-1]
 
+			// Remove popped item and update the stack
+			nfastack = nfastack[:len(nfastack)-1] // Everything on the stack up to the last character
+
+			frag1 := nfastack[len(nfastack)-1]
+
+			// Remove popped item and update the stack
+			nfastack = nfastack[:len(nfastack)-1] // Everything on the stack up to the last character
+
+			// Create two new states
+			accept := state{}
+			initial := state{edge1: frag1.initial, edge2: frag2.initial}
+
+			// Concatenate the items
+			frag1.accept.edge1 = &accept
+			frag2.accept.edge1 = &accept
+
+			//push new nfa fragment onto the stack
+			nfastack = append(nfastack, &nfa{initial: &initial, accept: &accept})
 		// Kleane star - zero or more
 		case '*':
 		}
