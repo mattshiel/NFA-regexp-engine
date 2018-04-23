@@ -29,6 +29,19 @@ func poregtonfa(pofix string) *nfa {
 	// Stack structure
 	nfastack := []*nfa{}
 
+	for _, r := range pofix {
+		switch r {
+		// Concatenation operator
+		case '.':
+
+		// Alternation operator
+		case '|':
+
+		// Kleane star - zero or more
+		case '*':
+		}
+	}
+
 	return nfastack[0]
 
 }
