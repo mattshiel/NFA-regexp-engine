@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"./nfaEngine"
 	"./shunt"
 )
 
@@ -17,4 +18,8 @@ func main() {
 	postfix = shunt.IntToPost(infix)
 
 	fmt.Println("Converted expression is: " + postfix)
+
+	// Test to see if the pointer value to an NFA is returned
+	nfa := nfaEngine.Poregtonfa("ab.c*|")
+	fmt.Println(nfa)
 }
