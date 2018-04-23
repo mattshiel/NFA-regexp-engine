@@ -78,6 +78,24 @@ func poregtonfa(pofix string) *nfa {
 			nfastack = append(nfastack, &nfa{initial: &initial, accept: &accept})
 		// Kleane star - zero or more
 		case '*':
+			// Pop an item off the stack
+			frag := nfastack[len(nfastack)-1]
+
+			// Remove popped item and update the stack
+			nfastack = nfastack[:len(nfastack)-1]
+			//point at oold accpet state & new initial state
+			accept := state{}
+			//new initial state , point to old initial & new accept
+			initial := state{edge1: frag.initial, edge2: &accept}
+			frag.accept.edge1 = frag.initial //old frag with 2 extra states
+			frag.accept.edge2 = &accept
+
+			nfastack = append(nfastack, &nfa{initial: &initial, accept: &accept})
+
+		default:
+			accept := state{}
+			initial := state{symbol: r, edge1: &accept}
+			nfastack = append(nfastack, &nfa{initial: &initial, accept: &accept})
 		}
 	}
 
