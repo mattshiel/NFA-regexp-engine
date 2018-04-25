@@ -46,11 +46,11 @@ Alternatively:
 ```
 
 ## Program Guide
-1. Select whether to enter in a regular expression in infix or postfix notation
-2. Enter in the regular expression
-3. Enter in the string to match against the generated NFA
-4. Receive output -> press enter to repeat the process
-5. 'Hold ctrl/control' + 'z' to force quit the program
+1. Select whether to enter in a regular expression in infix or postfix notation.
+2. Enter in the regular expression.
+3. Enter in the string to match against the generated NFA.
+4. Receive output -> press enter to repeat the process.
+5. 'Hold ctrl/control' + 'z' to force quit the program.
 
 ## Basics of the Program
 The engine can convert infix notation to postfix notation. It does this through a simple implementation of the shunting yard algorithm. Next, a small series of nfa fragments are created from the regular expression. These fragments make up the final NFA. This is then passed a string to match against. If the string matches against the regular expression then the output is true, otherwise the output is false.
@@ -74,6 +74,16 @@ I followed Thomson's construction to help build the NFA. As learnt from Dr. Cox'
 > The NFA for a regular expression is built up from partial NFAs for each subexpression with a different construction for each operator.
 
 ie. The overall NFA is made up from lots of smaller NFA fragments.
+These smaller fragments are stored in a stack structure in my program.
+
+The overall NFA in my program is then reflected as linked collection of state structures. This NFA can then be used to test a string against.
+
+## Extras
+
+1. The user has menu options for adding an infix or postfix notation regexp.
+2. The '?' operator was added as an extra to the project.
+3. The '+' operator was added as an extra to the project.
+4. The NFA engine can recognize strings over the alphabet [a-z] and [A-Z]
 
 ## References
 
