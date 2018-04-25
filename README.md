@@ -45,10 +45,20 @@ Alternatively:
 > go run main.go
 ```
 
-## Design Components
+## Program Guide
+1. Select whether to enter in a regular expression in infix or postfix notation
+2. Enter in the regular expression
+3. Enter in the string to match against the generated NFA
+4. Receive output -> press enter to repeat the process
+5. 'Hold ctrl/control' + 'z' to force quit the program
 
-## Problems and Features
+## Basics of the Program
+The engine can convert infix notation to postfix notation. It does this through a simple implementation of the shunting yard algorithm. Next, a small series of nfa fragments are created from the regular expression. These fragments make up the final NFA. This is then passed a string to match against. If the string matches against the regular expression then the output is true, otherwise the output is false.
 
+## Design Choices
+
+### Shunting Yard Algorithm
+To solve the issue of converting infix to postfix notation I used the shunting yard algoritm.
 
 ## References
 
