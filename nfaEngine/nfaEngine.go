@@ -25,7 +25,7 @@ type nfa struct {
 	accept  *state
 }
 
-// Poregtonfa converts a postfix regexp to an NFA and returns a pointer to it
+// poregtonfa converts a postfix regexp to an NFA and returns a pointer to it
 func poregtonfa(pofix string) *nfa {
 
 	// Stack structure
@@ -50,7 +50,7 @@ func poregtonfa(pofix string) *nfa {
 
 			// Concatenate the two popped items
 			frag1.accept.edge1 = frag2.initial
-			//push new nfa fragment onto the stack
+			// Push nfa fragment onto the stack
 			nfastack = append(nfastack, &nfa{
 				initial: frag1.initial, accept: frag2.accept})
 
@@ -94,6 +94,36 @@ func poregtonfa(pofix string) *nfa {
 			frag.accept.edge2 = &accept
 
 			nfastack = append(nfastack, &nfa{initial: &initial, accept: &accept})
+
+		// One or more
+		case '+':
+			// pop a single element off the stack
+			frag := nfastack[len(nfastack)-1]
+
+			// Remove popped item from stack
+			nfastack = nfastack[:len(nfastack)-1]
+
+			// Accept state
+			accept := state{}
+			// New initial state
+			initial := state{edge1: frag.initial, edge2: &accept}
+
+			frag.accept.edge1 = &initial
+
+			nfastack = append(nfastack, &nfa{initial: frag.initial, accept: &accept})
+
+		// Zero or more
+		case '?':
+			// pop a single element off the stack
+			frag := nfastack[len(nfastack)-1]
+
+			// Remove popped item from stack
+			nfastack = nfastack[:len(nfastack)-1]
+
+			// state pointing to popped item and accept state
+			initial := state{edge1: frag.initial, edge2: frag.accept}
+			// add the nfa to the stack
+			nfastack = append(nfastack, &nfa{initial: &initial, accept: frag.accept})
 
 		default:
 			accept := state{}

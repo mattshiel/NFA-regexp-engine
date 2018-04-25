@@ -31,7 +31,9 @@ func IntToPost(infix string) string {
 	specials := map[rune]int{
 		'*': 10,
 		'.': 9,
-		'|': 8,
+		'+': 8,
+		'?': 7,
+		'|': 6,
 	}
 
 	// Array of runes to hold the postfix regular expression
