@@ -94,4 +94,4 @@ The overall NFA in my program is then reflected as linked collection of state st
 * Introuction To The Theory Of computation : http://fuuu.be/polytech/INFOF408/Introduction-To-The-Theory-Of-Computation-Michael-Sipser.pdf
 * Please note any adapted code snippets have been referenced in the code.
 
-I consulted both the the Golang, Russ Cox article and videos by lecturer Ian McLoughlin frequently over the course of my assignment.
+I consulted the Golang docs, Russ Cox article and videos by lecturer Ian McLoughlin frequently over the course of my assignment.
