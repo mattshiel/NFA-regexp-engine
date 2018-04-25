@@ -59,6 +59,21 @@ The engine can convert infix notation to postfix notation. It does this through 
 
 ### Shunting Yard Algorithm
 To solve the issue of converting infix to postfix notation I used the shunting yard algoritm.
+This algorithm respects the operator precedences too.
+
+For the conversion there are two strings, the input and the output.
+A stack structure is used to hold the operators not yet added to the output queue eg. +, -, ×, ?
+I used Map to store all the special characters and their precedences.
+I then implemented the rules for the algorithm.
+
+These can be found here: https://en.wikipedia.org/wiki/Shunting-yard_algorithm
+
+## Thomson's Construction
+I followed Thomson's construction to help build the NFA. As learnt from Dr. Cox's article on this, NFAs, DFAs and regular expressions all have the same computational power. Unlike Dr. Cox's implementation in C however I did not try to add a DFA implementation and simply stuck to the NFAs. 
+
+> The NFA for a regular expression is built up from partial NFAs for each subexpression with a different construction for each operator.
+
+ie. The overall NFA is made up from lots of smaller NFA fragments.
 
 ## References
 
