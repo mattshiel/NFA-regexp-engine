@@ -4,7 +4,7 @@
 
 ## Student ID: G00338622
 
-This program was developed as a project for my third year 'Graph Theory' module in GMIT. The project can build an NFA from a regexp and tests a given string against the NFA to test for a match.
+A program which can build a NFA from a regexp and test a given string against the NFA to test for a match. This program was developed as a project for my third year 'Graph Theory' module in GMIT. 
 
 ## Original Problem Statement 
 > You must write a program in the Go programming language [2] that can build a non-deterministic finite automaton (NFA) from a regular expression, and can use the NFA to check if the regular expression matches any given string of text. You must write the program from scratch and cannot use the regexp package from the Go standard library nor any other external library.
